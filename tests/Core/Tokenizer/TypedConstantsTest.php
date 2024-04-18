@@ -116,7 +116,9 @@ final class TypedConstantsTest extends AbstractTokenizerTestCase
      * @dataProvider dataNullableTypedConstant
      * @dataProvider dataUnionTypedConstant
      * @dataProvider dataIntersectionTypedConstant
+     * @dataProvider dataDNFTypedConstant
      * @covers       PHP_CodeSniffer\Tokenizers\PHP::tokenize
+     * @covers       PHP_CodeSniffer\Tokenizers\PHP::processAdditional
      *
      * @return void
      */
@@ -486,6 +488,151 @@ final class TypedConstantsTest extends AbstractTokenizerTestCase
         return $data;
 
     }//end dataIntersectionTypedConstant()
+
+
+    /**
+     * Data provider.
+     *
+     * @see testTypedConstant()
+     *
+     * @return array<string, array<string, string>>
+     */
+    public static function dataDNFTypedConstant()
+    {
+        $data = [
+            'DNF type: null after'                                       => [
+                'testMarker' => '/* testAnonClassConstDNFTypeNullAfter */',
+                'sequence'   => [
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_NULL,
+                ],
+            ],
+            'DNF type: null before'                                      => [
+                'testMarker' => '/* testAnonClassConstDNFTypeNullBefore */',
+                'sequence'   => [
+                    T_NULL,
+                    T_TYPE_UNION,
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                ],
+            ],
+            'DNF type: false before'                                     => [
+                'testMarker' => '/* testAnonClassConstDNFTypeFalseBefore */',
+                'sequence'   => [
+                    T_FALSE,
+                    T_TYPE_UNION,
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                ],
+            ],
+            'DNF type: true after'                                       => [
+                'testMarker' => '/* testAnonClassConstDNFTypeTrueAfter */',
+                'sequence'   => [
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_TRUE,
+                ],
+            ],
+            'DNF type: true before, false after'                         => [
+                'testMarker' => '/* testAnonClassConstDNFTypeTrueBeforeFalseAfter */',
+                'sequence'   => [
+                    T_TRUE,
+                    T_TYPE_UNION,
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_FALSE,
+                ],
+            ],
+            'DNF type: array after'                                      => [
+                'testMarker' => '/* testAnonClassConstDNFTypeArrayAfter */',
+                'sequence'   => [
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_STRING,
+                ],
+            ],
+            'DNF type: array before'                                     => [
+                'testMarker' => '/* testAnonClassConstDNFTypeArrayBefore */',
+                'sequence'   => [
+                    T_STRING,
+                    T_TYPE_UNION,
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                ],
+            ],
+            'DNF type: invalid nullable DNF'                             => [
+                'testMarker' => '/* testAnonClassConstDNFTypeInvalidNullable */',
+                'sequence'   => [
+                    T_NULLABLE,
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_STRING,
+                    T_TYPE_INTERSECTION,
+                    T_STRING,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_STRING,
+                ],
+            ],
+            'DNF type: FQN/namespace relative/partially qualified names' => [
+                'testMarker' => '/* testAnonClassConstDNFTypeFQNRelativePartiallyQualified */',
+                'sequence'   => [
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_NAME_FULLY_QUALIFIED,
+                    T_TYPE_INTERSECTION,
+                    T_NAME_RELATIVE,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_NAME_QUALIFIED,
+                ],
+            ],
+            'DNF type: invalid self/parent/static'                       => [
+                'testMarker' => '/* testAnonClassConstDNFTypeParentSelfStatic */',
+                'sequence'   => [
+                    T_TYPE_OPEN_PARENTHESIS,
+                    T_PARENT,
+                    T_TYPE_INTERSECTION,
+                    T_SELF,
+                    T_TYPE_CLOSE_PARENTHESIS,
+                    T_TYPE_UNION,
+                    T_STATIC,
+                ],
+            ],
+        ];
+
+        // The constant name, as the last token in the sequence, is always T_STRING.
+        foreach ($data as $key => $value) {
+            $data[$key]['sequence'][] = T_STRING;
+        }
+
+        return $data;
+
+    }//end dataDNFTypedConstant()
 
 
 }//end class
