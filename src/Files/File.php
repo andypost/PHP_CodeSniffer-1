@@ -1895,18 +1895,20 @@ class File
         if ($i < $stackPtr) {
             // We've found a type.
             $valid = [
-                T_STRING               => T_STRING,
-                T_NAME_QUALIFIED       => T_NAME_QUALIFIED,
-                T_NAME_FULLY_QUALIFIED => T_NAME_FULLY_QUALIFIED,
-                T_NAME_RELATIVE        => T_NAME_RELATIVE,
-                T_CALLABLE             => T_CALLABLE,
-                T_SELF                 => T_SELF,
-                T_PARENT               => T_PARENT,
-                T_FALSE                => T_FALSE,
-                T_TRUE                 => T_TRUE,
-                T_NULL                 => T_NULL,
-                T_TYPE_INTERSECTION    => T_TYPE_INTERSECTION,
-                T_TYPE_UNION           => T_TYPE_UNION,
+                T_STRING                 => T_STRING,
+                T_NAME_QUALIFIED         => T_NAME_QUALIFIED,
+                T_NAME_FULLY_QUALIFIED   => T_NAME_FULLY_QUALIFIED,
+                T_NAME_RELATIVE          => T_NAME_RELATIVE,
+                T_CALLABLE               => T_CALLABLE,
+                T_SELF                   => T_SELF,
+                T_PARENT                 => T_PARENT,
+                T_FALSE                  => T_FALSE,
+                T_TRUE                   => T_TRUE,
+                T_NULL                   => T_NULL,
+                T_TYPE_UNION             => T_TYPE_UNION,
+                T_TYPE_INTERSECTION      => T_TYPE_INTERSECTION,
+                T_TYPE_OPEN_PARENTHESIS  => T_TYPE_OPEN_PARENTHESIS,
+                T_TYPE_CLOSE_PARENTHESIS => T_TYPE_CLOSE_PARENTHESIS,
             ];
 
             for ($i; $i < $stackPtr; $i++) {
