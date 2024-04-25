@@ -78,6 +78,7 @@ final class InlineControlStructureUnitTest extends AbstractSniffUnitTest
                 242 => 1,
                 260 => 1,
                 269 => 1,
+                278 => 1,
             ];
 
         default:
