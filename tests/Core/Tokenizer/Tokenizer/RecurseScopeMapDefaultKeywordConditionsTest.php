@@ -8,9 +8,11 @@
  * @license   https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\Tokenizer;
+namespace PHP_CodeSniffer\Tests\Core\Tokenizer\Tokenizer;
 
-final class DefaultKeywordTest extends AbstractTokenizerTestCase
+use PHP_CodeSniffer\Tests\Core\Tokenizer\AbstractTokenizerTestCase;
+
+final class RecurseScopeMapDefaultKeywordConditionsTest extends AbstractTokenizerTestCase
 {
 
 
@@ -24,7 +26,6 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
      * @param string $testContent The token content to look for.
      *
      * @dataProvider dataMatchDefault
-     * @covers       PHP_CodeSniffer\Tokenizers\PHP::tokenize
      * @covers       PHP_CodeSniffer\Tokenizers\Tokenizer::recurseScopeMap
      *
      * @return void
@@ -36,8 +37,8 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
         $token      = $this->getTargetToken($testMarker, [T_MATCH_DEFAULT, T_DEFAULT, T_STRING], $testContent);
         $tokenArray = $tokens[$token];
 
+        // Make sure we're looking at the right token.
         $this->assertSame(T_MATCH_DEFAULT, $tokenArray['code'], 'Token tokenized as '.$tokenArray['type'].', not T_MATCH_DEFAULT (code)');
-        $this->assertSame('T_MATCH_DEFAULT', $tokenArray['type'], 'Token tokenized as '.$tokenArray['type'].', not T_MATCH_DEFAULT (type)');
 
         $this->assertArrayNotHasKey('scope_condition', $tokenArray, 'Scope condition is set');
         $this->assertArrayNotHasKey('scope_opener', $tokenArray, 'Scope opener is set');
@@ -128,8 +129,8 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
         $expectedScopeOpener = ($token + $openerOffset);
         $expectedScopeCloser = ($token + $closerOffset);
 
+        // Make sure we're looking at the right token.
         $this->assertSame(T_DEFAULT, $tokenArray['code'], 'Token tokenized as '.$tokenArray['type'].', not T_DEFAULT (code)');
-        $this->assertSame('T_DEFAULT', $tokenArray['type'], 'Token tokenized as '.$tokenArray['type'].', not T_DEFAULT (type)');
 
         $this->assertArrayHasKey('scope_condition', $tokenArray, 'Scope condition is not set');
         $this->assertArrayHasKey('scope_opener', $tokenArray, 'Scope opener is not set');
@@ -226,7 +227,7 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
      * @param string $testContent The token content to look for.
      *
      * @dataProvider dataNotDefaultKeyword
-     * @covers       PHP_CodeSniffer\Tokenizers\PHP::processAdditional
+     * @covers       PHP_CodeSniffer\Tokenizers\Tokenizer::recurseScopeMap
      *
      * @return void
      */
@@ -237,8 +238,8 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
         $token      = $this->getTargetToken($testMarker, [T_MATCH_DEFAULT, T_DEFAULT, T_STRING], $testContent);
         $tokenArray = $tokens[$token];
 
+        // Make sure we're looking at the right token.
         $this->assertSame(T_STRING, $tokenArray['code'], 'Token tokenized as '.$tokenArray['type'].', not T_STRING (code)');
-        $this->assertSame('T_STRING', $tokenArray['type'], 'Token tokenized as '.$tokenArray['type'].', not T_STRING (type)');
 
         $this->assertArrayNotHasKey('scope_condition', $tokenArray, 'Scope condition is set');
         $this->assertArrayNotHasKey('scope_opener', $tokenArray, 'Scope opener is set');
@@ -313,7 +314,6 @@ final class DefaultKeywordTest extends AbstractTokenizerTestCase
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/3326
      *
-     * @covers PHP_CodeSniffer\Tokenizers\PHP::tokenize
      * @covers PHP_CodeSniffer\Tokenizers\Tokenizer::recurseScopeMap
      *
      * @return void
