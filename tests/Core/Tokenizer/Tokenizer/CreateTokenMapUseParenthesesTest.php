@@ -7,11 +7,11 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\Tokenizer;
+namespace PHP_CodeSniffer\Tests\Core\Tokenizer\Tokenizer;
 
-use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
+use PHP_CodeSniffer\Tests\Core\Tokenizer\AbstractTokenizerTestCase;
 
-final class UseParenthesisOwnerTest extends AbstractMethodUnitTest
+final class CreateTokenMapUseParenthesesTest extends AbstractTokenizerTestCase
 {
 
 
@@ -27,7 +27,7 @@ final class UseParenthesisOwnerTest extends AbstractMethodUnitTest
      */
     public function testUseNotClosure($testMarker)
     {
-        $tokens = self::$phpcsFile->getTokens();
+        $tokens = $this->phpcsFile->getTokens();
 
         $use = $this->getTargetToken($testMarker, T_USE);
         $this->assertArrayNotHasKey('parenthesis_owner', $tokens[$use]);
@@ -54,7 +54,7 @@ final class UseParenthesisOwnerTest extends AbstractMethodUnitTest
      */
     public function testUseNotClosureNextOpenClose($testMarker, $expectedOwnerCode=null)
     {
-        $tokens = self::$phpcsFile->getTokens();
+        $tokens = $this->phpcsFile->getTokens();
         $opener = $this->getTargetToken($testMarker, T_OPEN_PARENTHESIS);
         $closer = $this->getTargetToken($testMarker, T_CLOSE_PARENTHESIS);
 
@@ -117,7 +117,7 @@ final class UseParenthesisOwnerTest extends AbstractMethodUnitTest
      */
     public function testClosureUse($testMarker)
     {
-        $tokens = self::$phpcsFile->getTokens();
+        $tokens = $this->phpcsFile->getTokens();
         $use    = $this->getTargetToken($testMarker, T_USE);
         $opener = $this->getTargetToken($testMarker, T_OPEN_PARENTHESIS);
         $closer = $this->getTargetToken($testMarker, T_CLOSE_PARENTHESIS);
@@ -173,7 +173,7 @@ final class UseParenthesisOwnerTest extends AbstractMethodUnitTest
      */
     public function testLiveCoding()
     {
-        $tokens = self::$phpcsFile->getTokens();
+        $tokens = $this->phpcsFile->getTokens();
         $use    = $this->getTargetToken('/* testLiveCoding */', T_USE);
 
         $this->assertArrayHasKey('parenthesis_owner', $tokens[$use]);
