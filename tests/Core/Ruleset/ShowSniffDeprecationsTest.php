@@ -9,6 +9,7 @@
 
 namespace PHP_CodeSniffer\Tests\Core\Ruleset;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Tests\ConfigDouble;
 use PHPUnit\Framework\TestCase;
@@ -452,15 +453,8 @@ final class ShowSniffDeprecationsTest extends TestCase
      */
     public function testExceptionIsThrownOnIncorrectlyImplementedInterface($standard, $exceptionMessage)
     {
-        $exception = 'PHP_CodeSniffer\Exceptions\RuntimeException';
-        if (method_exists($this, 'expectException') === true) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($exceptionMessage);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $exceptionMessage);
-        }
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage($exceptionMessage);
 
         // Set up the ruleset.
         $standard = __DIR__.'/'.$standard;
