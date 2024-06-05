@@ -200,7 +200,7 @@ class Filter extends RecursiveFilterIterator
         // complete extension list and make sure one is allowed.
         $extensions = [];
         array_shift($fileParts);
-        foreach ($fileParts as $part) {
+        while (empty($fileParts) === false) {
             $extensions[] = implode('.', $fileParts);
             array_shift($fileParts);
         }

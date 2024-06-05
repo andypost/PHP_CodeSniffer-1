@@ -145,7 +145,7 @@ final class SetSniffPropertyTest extends TestCase
         // Set up the ruleset.
         $standard = __DIR__.'/SetPropertyThrowsErrorOnInvalidPropertyTest.xml';
         $config   = new ConfigDouble(["--standard=$standard"]);
-        $ruleset  = new Ruleset($config);
+        new Ruleset($config);
 
     }//end testSetPropertyThrowsErrorOnInvalidProperty()
 
@@ -169,7 +169,7 @@ final class SetSniffPropertyTest extends TestCase
         // Set up the ruleset.
         $standard = __DIR__.'/SetPropertyNotAllowedViaAttributeTest.xml';
         $config   = new ConfigDouble(["--standard=$standard"]);
-        $ruleset  = new Ruleset($config);
+        new Ruleset($config);
 
     }//end testSetPropertyThrowsErrorWhenPropertyOnlyAllowedViaAttribute()
 
@@ -187,7 +187,7 @@ final class SetSniffPropertyTest extends TestCase
         // Set up the ruleset.
         $standard = __DIR__.'/SetPropertyDoesNotThrowErrorOnInvalidPropertyWhenSetForStandardTest.xml';
         $config   = new ConfigDouble(["--standard=$standard"]);
-        $ruleset  = new Ruleset($config);
+        new Ruleset($config);
 
     }//end testSetPropertyDoesNotThrowErrorOnInvalidPropertyWhenSetForStandard()
 
@@ -205,7 +205,7 @@ final class SetSniffPropertyTest extends TestCase
         // Set up the ruleset.
         $standard = __DIR__.'/SetPropertyDoesNotThrowErrorOnInvalidPropertyWhenSetForCategoryTest.xml';
         $config   = new ConfigDouble(["--standard=$standard"]);
-        $ruleset  = new Ruleset($config);
+        new Ruleset($config);
 
     }//end testSetPropertyDoesNotThrowErrorOnInvalidPropertyWhenSetForCategory()
 
