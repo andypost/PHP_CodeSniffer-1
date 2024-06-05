@@ -119,8 +119,8 @@ class Code implements Report
 
         // Determine the longest error message we will be showing.
         $maxErrorLength = 0;
-        foreach ($report['messages'] as $line => $lineErrors) {
-            foreach ($lineErrors as $column => $colErrors) {
+        foreach ($report['messages'] as $lineErrors) {
+            foreach ($lineErrors as $colErrors) {
                 foreach ($colErrors as $error) {
                     $length = strlen($error['message']);
                     if ($showSources === true) {
@@ -262,7 +262,7 @@ class Code implements Report
 
             echo str_repeat('-', $width).PHP_EOL;
 
-            foreach ($lineErrors as $column => $colErrors) {
+            foreach ($lineErrors as $colErrors) {
                 foreach ($colErrors as $error) {
                     $padding = ($maxLineNumLength - strlen($line));
                     echo 'LINE '.str_repeat(' ', $padding).$line.': ';
