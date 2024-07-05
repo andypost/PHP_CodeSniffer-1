@@ -90,6 +90,7 @@ final class DisallowSpaceIndentUnitTest extends AbstractSniffUnitTest
                 117 => 1,
                 118 => 1,
             ];
+
         case 'DisallowSpaceIndentUnitTest.3.inc':
             return [
                 2  => 1,
@@ -100,6 +101,18 @@ final class DisallowSpaceIndentUnitTest extends AbstractSniffUnitTest
                 14 => 1,
                 15 => 1,
             ];
+
+        case 'DisallowSpaceIndentUnitTest.4.inc':
+            if (PHP_VERSION_ID >= 70300) {
+                return [
+                    7  => 1,
+                    13 => 1,
+                ];
+            }
+
+            // PHP 7.2 or lower: PHP version which doesn't support flexible heredocs/nowdocs yet.
+            return [];
+
         default:
             return [];
         }//end switch
