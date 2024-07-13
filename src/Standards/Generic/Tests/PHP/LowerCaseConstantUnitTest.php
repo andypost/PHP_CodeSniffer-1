@@ -26,43 +26,51 @@ final class LowerCaseConstantUnitTest extends AbstractSniffUnitTest
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
      *
+     * @param string $testFile The name of the file being tested.
+     *
      * @return array<int, int>
      */
-    public function getErrorList()
+    public function getErrorList($testFile='')
     {
-        return [
-            7   => 1,
-            10  => 1,
-            15  => 1,
-            16  => 1,
-            23  => 1,
-            26  => 1,
-            31  => 1,
-            32  => 1,
-            39  => 1,
-            42  => 1,
-            47  => 1,
-            48  => 1,
-            70  => 1,
-            71  => 1,
-            87  => 1,
-            89  => 1,
-            90  => 1,
-            92  => 2,
-            94  => 2,
-            95  => 1,
-            100 => 2,
-            104 => 1,
-            108 => 1,
-            118 => 1,
-            119 => 1,
-            120 => 1,
-            121 => 1,
-            125 => 1,
-            129 => 1,
-            149 => 1,
-            153 => 1,
-        ];
+        switch ($testFile) {
+        case 'LowerCaseConstantUnitTest.1.inc':
+            return [
+                7   => 1,
+                10  => 1,
+                15  => 1,
+                16  => 1,
+                23  => 1,
+                26  => 1,
+                31  => 1,
+                32  => 1,
+                39  => 1,
+                42  => 1,
+                47  => 1,
+                48  => 1,
+                70  => 1,
+                71  => 1,
+                87  => 1,
+                89  => 1,
+                90  => 1,
+                92  => 2,
+                94  => 2,
+                95  => 1,
+                100 => 2,
+                104 => 1,
+                108 => 1,
+                118 => 1,
+                119 => 1,
+                120 => 1,
+                121 => 1,
+                125 => 1,
+                129 => 1,
+                149 => 1,
+                153 => 1,
+            ];
+
+        default:
+            return [];
+        }//end switch
 
     }//end getErrorList()
 
